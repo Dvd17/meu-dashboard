@@ -12,7 +12,30 @@ export const INITIAL_STUDENTS: Student[] = [
         entryDate: '2025-11-15',
         planValue: 150,
         protocolType: 'training',
-        planType: 'monthly'
+        planType: 'monthly',
+        anamnesisSubmittedAt: '2025-11-14T10:00:00Z',
+        anamnesis: {
+            fullName: 'João Silva',
+            email: 'joao.silva@email.com',
+            whatsapp: '11999999999',
+            age: '28',
+            sex: 'male',
+            weight: '82',
+            height: '178',
+            pathology: 'Não possui',
+            injuries: 'Lesão no ombro direito há 2 anos',
+            medications: 'Nenhuma',
+            experienceLevel: 'intermediate',
+            trainingAvailability: '5x na semana, Smart Fit',
+            currentTraining: 'ABCDE',
+            dietaryHistory: 'Come bem, mas erra no fds',
+            restrictions: 'Intolerância leve a lactose',
+            aestheticGoals: 'Hipertrofia e definição',
+            difficulties: 'Manter a dieta no fim de semana',
+            currentDiet: '3 refeições sólidas + whey',
+            supplements: 'Creatina, Whey',
+            finalNotes: 'Focado em melhorar o shape para o verão'
+        }
     },
     {
         id: '2',

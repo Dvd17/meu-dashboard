@@ -9,14 +9,25 @@ export function DashboardStats() {
     const stats = useMemo(() => {
         const active = students.filter((s) => s.status === 'active');
         const renewal = students.filter((s) => s.status === 'renewal');
-        const totalValue = active.reduce((acc, curr) => acc + curr.planValue, 0) +
-            renewal.reduce((acc, curr) => acc + curr.planValue, 0);
+
+        const calculateMRR = (student: typeof students[0]) => {
+            const value = student.planValue || 0;
+            switch (student.planType) {
+                case 'bimonthly': return value / 2;
+                case 'semiannual': return value / 6;
+                case 'monthly':
+                default: return value;
+            }
+        };
+
+        const totalMRR = active.reduce((acc, curr) => acc + calculateMRR(curr), 0) +
+            renewal.reduce((acc, curr) => acc + calculateMRR(curr), 0);
 
         return {
             total: students.length,
             active: active.length,
             renewal: renewal.length,
-            revenue: totalValue,
+            revenue: totalMRR,
         };
     }, [students]);
 
@@ -41,10 +52,10 @@ export function DashboardStats() {
                 description="Precisam renovar em breve"
             />
             <StatsCard
-                title="Faturamento Mensal"
-                value={`R$ ${stats.revenue.toLocaleString('pt-BR')}`}
+                title="MRR Estimado"
+                value={`R$ ${stats.revenue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                 icon={DollarSign}
-                description="Receita recorrente atual"
+                description="Receita recorrente mensal"
             />
         </div>
     );

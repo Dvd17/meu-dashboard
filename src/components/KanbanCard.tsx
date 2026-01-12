@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import type { Student } from '../types';
-import { Calendar, ExternalLink, Clock, GripVertical, Pencil, AlertCircle } from 'lucide-react';
+import { Calendar, ExternalLink, Clock, GripVertical, Pencil, AlertCircle, FileText } from 'lucide-react';
 import { Draggable } from '@hello-pangea/dnd';
 import { cn } from '../lib/utils';
 import { EditLinkModal } from './EditLinkModal';
+import { AnamnesisViewerModal } from './AnamnesisViewerModal';
 import { getRenewalStatus } from '../utils/dateUtils';
 
 interface KanbanCardProps {
@@ -13,6 +14,7 @@ interface KanbanCardProps {
 
 export function KanbanCard({ student, index }: KanbanCardProps) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isAnamnesisModalOpen, setIsAnamnesisModalOpen] = useState(false);
 
     const statusColors = {
         active: 'bg-green-900/30 text-green-400 border-green-800',
@@ -95,6 +97,16 @@ export function KanbanCard({ student, index }: KanbanCardProps) {
                             >
                                 <Pencil className="h-3.5 w-3.5" />
                             </button>
+                            {student.anamnesis && (
+                                <button
+                                    onClick={() => setIsAnamnesisModalOpen(true)}
+                                    className="p-1.5 text-gray-400 hover:text-purple-400 hover:bg-[#2a2a2a] rounded-md transition-colors"
+                                    title="Ver Anamnese"
+                                    onPointerDown={(e) => e.stopPropagation()}
+                                >
+                                    <FileText className="h-3.5 w-3.5" />
+                                </button>
+                            )}
                             {student.notionUrl && (
                                 <a
                                     href={student.notionUrl}
@@ -117,6 +129,12 @@ export function KanbanCard({ student, index }: KanbanCardProps) {
                 onClose={() => setIsEditModalOpen(false)}
                 studentId={student.id}
                 currentUrl={student.notionUrl || ''}
+            />
+
+            <AnamnesisViewerModal
+                isOpen={isAnamnesisModalOpen}
+                onClose={() => setIsAnamnesisModalOpen(false)}
+                student={student}
             />
         </>
     );

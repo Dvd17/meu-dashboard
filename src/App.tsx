@@ -4,6 +4,7 @@ import { Dashboard } from './pages/Dashboard';
 import { StudentsList } from './pages/StudentsList';
 import { Financial } from './pages/Financial';
 import { AnamnesisForm } from './pages/AnamnesisForm';
+import { ProtocolEditorPage } from './pages/ProtocolEditorPage';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/" element={<Layout><Dashboard /></Layout>} />
         <Route path="/alunos" element={<Layout><StudentsList /></Layout>} />
         <Route path="/financeiro" element={<Layout><Financial /></Layout>} />
+        <Route path="/protocolos/novo" element={<Layout><ProtocolEditorPage /></Layout>} />
+        <Route path="/protocolos/:id" element={<Layout><ProtocolEditorPage /></Layout>} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
